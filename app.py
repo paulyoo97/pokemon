@@ -24,6 +24,17 @@ def data():
 
     return pokedex
 
+def info():
+    global col
+    for c in pokedex.columns:
+         col.text(f'''{c}: {pokedex[c].loc[index]}''')
+    
+def showImg():
+    global disp
+    pokemon = Image.open(f"images/{pokedex['Name'].loc[index]}.jpg")
+    disp.image(pokemon)
+    # ♀ and ♂ for nidoran
+
 header = st.container()
 with header:
     st.title("Who's that Pokemon?")
@@ -66,10 +77,5 @@ with test:
     pokedex = data()
 
     col,disp = st.columns([3.5,0.75])
-    # col.write(df)
-    for c in pokedex.columns:
-        col.text(f'''{c}: {pokedex[c].loc[index]}''')
-    
-    pokemon = Image.open(f"images/{pokedex['Name'].loc[index]}.jpg")
-    disp.image(pokemon)
-    # ♀ and ♂ for nidoran
+    info()
+    showImg()
